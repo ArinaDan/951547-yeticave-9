@@ -1,7 +1,7 @@
 # Личный проект «YetiCave»
 
 * Студент: [Ri Dan](https://up.htmlacademy.ru/php/9/user/951547).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Куприянов](https://htmlacademy.ru/profile/id541075).
 
 ---
 
