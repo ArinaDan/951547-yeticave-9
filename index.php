@@ -44,18 +44,17 @@ $lots = [
         ]
     ];
 
+/**
+* Выполняет округление и форматирование числа. Итог - целое число с делением на разряды
+* @param int $ price Число для форматирования
+* @return string
+*/
+function price_format ($price) {
+    $price = ceil ($price);
+    $price = number_format($price, 0, '', ' ');
+    $result = $price . ' ₽';
 
-function price_format (
-    $price
-) {
-     $price = ceil ($price);
-
-    if ($price < 1000) {
-        echo $price . ' ₽';
-    }
-    else {
-        echo $price = number_format($price, 0, '', ' ') . ' ₽';
-    }
+    return $result;    
 };
 ?>
 
@@ -135,7 +134,7 @@ if ($is_auth==1): ?>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$option['price'];?></span>
-                            <span class="lot__cost"><?=price_format($price=$option['price']);?></span>
+                            <span class="lot__cost"><?=price_format($option['price']);?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
