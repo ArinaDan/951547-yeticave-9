@@ -42,8 +42,23 @@ $lots = [
             'price' => 5400,
             'image' => 'img/lot-6.jpg'
         ]
-    ]; 
+    ];
+
+
+function price_format (
+    $price
+) {
+     $price = ceil ($price);
+
+    if ($price < 1000) {
+        echo $price . ' ₽';
+    }
+    else {
+        echo $price = number_format($price, 0, '', ' ') . ' ₽';
+    }
+};
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -120,7 +135,7 @@ if ($is_auth==1): ?>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$option['price'];?></span>
-                            <span class="lot__cost"><?=$option['price'];?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=price_format($price=$option['price']);?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
