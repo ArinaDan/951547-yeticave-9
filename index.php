@@ -1,5 +1,6 @@
 <?php
 require_once 'functions.php';
+require_once 'timestamp.php';
 
 $is_auth = rand(0, 1);
 
@@ -48,7 +49,9 @@ $lots = [
 
 $page_content = include_template('index.php', [
     'lots' => $lots,
-    'categories' => $categories    
+    'categories' => $categories,
+    'time_format' => $time_format,
+    'time_until_end_h' => $time_until_end_h
 ]);
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
