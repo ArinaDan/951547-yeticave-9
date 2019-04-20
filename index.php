@@ -1,4 +1,6 @@
 <?php
+require_once 'functions.php';
+
 $is_auth = rand(0, 1);
 
 $user_name = 'Даниленко Арина'; // укажите здесь ваше имя
@@ -44,42 +46,6 @@ $lots = [
         ]
     ];
 
-/**
-* Выполняет округление и форматирование числа. Итог - целое число с делением на разряды
-* @param int $ price Число для форматирования
-* @return string
-*/
-function price_format ($price) {
-    $price = ceil ($price);
-    $price = number_format($price, 0, '', ' ');
-    $result = $price . ' ₽';
-
-    return $result;    
-};
-
-/**
- * Подключает шаблон, передает туда данные и возвращает итоговый HTML контент
- * @param string $name Путь к файлу шаблона относительно папки templates
- * @param array $data Ассоциативный массив с данными для шаблона
- * @return string Итоговый HTML
- */
-function include_template($name, array $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
-
-    if (!is_readable($name)) {
-        return $result;
-    }
-
-    ob_start();
-    extract($data);
-    require $name;
-
-    $result = ob_get_clean();
-
-    return $result;
-}
-
 $page_content = include_template('index.php', [
     'lots' => $lots,
     'categories' => $categories    
@@ -88,9 +54,8 @@ $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Главная',
-    'user_name' => '$user_name'
+    'user_name' => $user_name,
+    'is_auth' => $is_auth
 ]);
 
-
 print($layout_content);
-?>
