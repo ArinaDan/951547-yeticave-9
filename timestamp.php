@@ -2,12 +2,41 @@
 date_default_timezone_set("Asia/Yekaterinburg");
 setlocale(LC_ALL, 'ru_RU');
 
-$ts_now = time();
-$ts_end = strtotime('tomorrow');
-$ts_interval = $ts_end - $ts_now;
-$time_until_end_h = floor($ts_interval / 3600);
-$time_until_end_m = floor($ts_interval % 3600 / 60);
-//$time_format = $time_until_end_h . ':' . $time_until_end_m;
-$time_format = date('H:i', $ts_interval);
+/**
+* Считает время до завершения лота
+* @param string $lot_end
+* @return string
+*/
 
-print($time_format);
+function get_formatted_lot_end(string $lot_end) : string
+{
+    $end = strtotime($lot_end); // YYYY-mm-dd H:i
+
+    $diff = $end - time();
+    
+    $hours = floor($diff / 3600);
+    $minutes = floor($diff % 3600 / 60);
+    
+    if ($hours < 10) {
+        $hours = '0' . $hours;
+    }
+    if ($minutes < 10) {
+        $minutes = '0' . $minutes;
+    }
+    
+    return $hours . ':' . $minutes;
+}
+
+/**
+* Добавляет класс при выполнении условия
+* @param string $lot_end
+* @return string
+*/
+function add_lot_status_class(string $lot_end) : string
+{
+    $end = strtotime($lot_end); // YYYY-mm-dd H:i
+
+    $diff = $end - time();
+    
+    return $diff <= 3600 ? 'timer--finishing' : '';
+}
