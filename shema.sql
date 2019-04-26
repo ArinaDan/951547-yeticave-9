@@ -1,43 +1,37 @@
-CREATE DATABASE yeticave;
-/*DEFAULT CHARACTER SET utf8;
+CREATE DATABASE `951547-yeticave-9`
+DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
-Если раскомментировать, то выдает:
-Ошибка SQL (1064): You have an error in your SQL syntax; check the manual that corresponds to
-your MariaDB server version for the right syntax to use near 'DEFAULT CHARACTER SET utf8' at line 1
-*/
-USE yeticave;
-CREATE TABLE users (
-id INT AUTO_INCREMENT PRIMARY KEY,
-email CHAR(128) NOT NULL UNIQUE,
-`password` CHAR(64) NOT NULL,
-`name` CHAR(128) DEFAULT 'Гость',
-photo CHAR(255),
-contacts CHAR(255),
-reg_date TIMESTAMP,
-lot_id INT,
-bid_id INT
+USE `951547-yeticave-9`;
+CREATE TABLE `users` (
+`user_id` INT AUTO_INCREMENT PRIMARY KEY,
+`e-mail` VARCHAR(128) NOT NULL UNIQUE,
+`password` VARCHAR(64) NOT NULL,
+`name` VARCHAR(128) NOT NULL,
+`photo` VARCHAR(255) DEFAULT NULL,
+`contacts` VARCHAR(255) NOT NULL,
+`reg_date` DATETIME DEFAULT NULL
 );
-CREATE TABLE categories (
-id INT AUTO_INCREMENT PRIMARY KEY,
-`name` CHAR(64)
+CREATE TABLE `categories` (
+`category_id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(64)
 );
-CREATE TABLE lots (
-id INT AUTO_INCREMENT PRIMARY KEY,
-title CHAR(255) NOT NULL,
-price_start INT NOT NULL,
-time_start TIMESTAMP DEFAULT CURRENT_TIMESTAMP, /*значение по умолчанию тут уместно? Оно запишется 1 раз при создании или будет меняться?*/
-time_end TIMESTAMP,
-image CHAR(255) NOT NULL,
-description TEXT,
-bid_step INT NOT NULL,
-category_id INT,
-user_id INT,
-user_win_id INT /*в последних трех лучше id или ссылка на профиль/имя категории?*/
+CREATE TABLE `lots` (
+`lot_id` INT AUTO_INCREMENT PRIMARY KEY,
+`title` VARCHAR(255) NOT NULL,
+`price_start` INT NOT NULL,
+`lot_add` DATETIME DEFAULT NOW(),
+`lot_end` DATETIME DEFAULT NULL,
+`image` VARCHAR(255) NOT NULL,
+`description` TEXT NOT NULL,
+`bid_step` INT NOT NULL,
+`category` INT,
+`owner_id` INT,
+`winner_id` INT DEFAULT NULL
 );
-CREATE TABLE bids (
-id INT AUTO_INCREMENT PRIMARY KEY,
-amount INT NOT NULL,
-`time` TIMESTAMP,
-lot_id INT,
-user_id INT
+CREATE TABLE `bids` (
+`bid_id` INT AUTO_INCREMENT PRIMARY KEY,
+`price` INT NOT NULL,
+`bid_add` DATETIME DEFAULT NULL,
+`user` INT,
+`lot` INT
 );
