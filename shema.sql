@@ -1,0 +1,37 @@
+CREATE DATABASE `951547-yeticave-9`
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+USE `951547-yeticave-9`;
+CREATE TABLE `users` (
+`user_id` INT AUTO_INCREMENT PRIMARY KEY,
+`e-mail` VARCHAR(128) NOT NULL UNIQUE,
+`password` VARCHAR(64) NOT NULL,
+`name` VARCHAR(128) NOT NULL,
+`photo` VARCHAR(255) DEFAULT NULL,
+`contacts` VARCHAR(255) NOT NULL,
+`reg_date` DATETIME DEFAULT NULL
+);
+CREATE TABLE `categories` (
+`category_id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(64)
+);
+CREATE TABLE `lots` (
+`lot_id` INT AUTO_INCREMENT PRIMARY KEY,
+`title` VARCHAR(255) NOT NULL,
+`price_start` INT NOT NULL,
+`lot_add` DATETIME DEFAULT NOW(),
+`lot_end` DATETIME DEFAULT NULL,
+`image` VARCHAR(255) NOT NULL,
+`description` TEXT NOT NULL,
+`bid_step` INT NOT NULL,
+`category` INT,
+`owner_id` INT,
+`winner_id` INT DEFAULT NULL
+);
+CREATE TABLE `bids` (
+`bid_id` INT AUTO_INCREMENT PRIMARY KEY,
+`price` INT NOT NULL,
+`bid_add` DATETIME DEFAULT NULL,
+`user` INT,
+`lot` INT
+);

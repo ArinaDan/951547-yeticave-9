@@ -49,9 +49,7 @@ $lots = [
 
 $page_content = include_template('index.php', [
     'lots' => $lots,
-    'categories' => $categories,
-    'time_format' => $time_format,
-    'time_until_end_h' => $time_until_end_h
+    'categories' => $categories
 ]);
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
