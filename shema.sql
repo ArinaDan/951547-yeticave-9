@@ -13,7 +13,8 @@ CREATE TABLE `users` (
 );
 CREATE TABLE `categories` (
 `category_id` INT AUTO_INCREMENT PRIMARY KEY,
-`name` VARCHAR(64)
+`name` VARCHAR(64),
+`code` VARCHAR(255)
 );
 CREATE TABLE `lots` (
 `lot_id` INT AUTO_INCREMENT PRIMARY KEY,
