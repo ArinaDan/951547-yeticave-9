@@ -4,7 +4,7 @@
 
 
         <ul class="promo__list">
-        <?php foreach ($categories as $category): ?>
+        <?php foreach (cat($con) as $category): ?>
             <li class="promo__item promo__item--<?= $category['code'] ?>">
                 <a class="promo__link" href="pages/all-lots.html"><?= $category['name'] ?></a>
         <?php endforeach; ?>
@@ -16,7 +16,7 @@
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
-            <?php foreach ($lots as $lot): ?>
+            <?php foreach (lots($con) as $lot): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?= $lot['image'] ?>" width="350" height="260" alt="">
@@ -31,7 +31,7 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?= price_format($lot['price_start']) ?></span>
-                            <?php if ('price' === NULL): ?> 
+                            <?php if ($lot['price'] === NULL): ?> 
                             <span class="lot__cost"><?= price_format($lot['price_start']) ?></span>
                             <?php else: ?>
                             <span class="lot__cost"><?= price_format($lot['price']) ?></span>
