@@ -7,21 +7,19 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Даниленко Арина'; // укажите здесь ваше имя
 
-
+$lots = get_all_lots($con);
+$categories = get_all_categories($con);
 
 $page_content = include_template('index.php', [
     'lots' => $lots,
-    'categories' => $categories,
-    'con' => $con,
-    'lots' => $lots
+    'categories' => $categories
 ]);
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Главная',
     'user_name' => $user_name,
-    'is_auth' => $is_auth,
-    'con' => $con
+    'is_auth' => $is_auth
 ]);
 
 print($layout_content);

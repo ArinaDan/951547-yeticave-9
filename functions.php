@@ -25,3 +25,33 @@ function esc($str) {
 
 	return $text;
 }
+
+function get_all_categories($con) {
+$categories = [];
+
+$sql = "SELECT `name`, `code` FROM `categories`";
+$result = mysqli_query($con, $sql);
+
+if ($result !== false) {
+	$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+return $categories;
+}
+
+function get_all_lots($con) {
+$lots = [];
+
+$sql = "SELECT `title`, `lot_end`, `price_start`, `description`, `image`, MAX(price) as `price`,  `name` as `category_name`, `bid_step`, `lot_id` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` GROUP BY `title` ORDER BY `lot_add` DESC";
+$result = mysqli_query($con, $sql);
+
+if ($result !== false) {
+$lots = mysqli_fetch_all($result, MYSQLI_ASSOC);	
+}
+
+return $lots;
+}
+
+function get_min_bid($lot) {
+return intval($lot['price'] ?: $lot['price_start']) + intval($lot['bid_step']);
+}
