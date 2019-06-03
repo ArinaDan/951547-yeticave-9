@@ -23,4 +23,5 @@ $layout_content = include_template('layout.php', [
     'is_auth' => $is_auth
 ]);
 
+
 print($layout_content);
