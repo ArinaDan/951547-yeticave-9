@@ -23,7 +23,13 @@ function get_formatted_lot_end(string $lot_end) : string
     if ($minutes < 10) {
         $minutes = '0' . $minutes;
     }
-    
+    if ($minutes < 1) {
+        $minutes = '00';
+    }
+    if  ($hours < 1) {
+        $hours = '00';
+    }
+
     return $hours . ':' . $minutes;
 }
 
