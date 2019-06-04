@@ -33,7 +33,7 @@ function esc($str) {
 function get_all_categories($con) {
 $categories = [];
 
-$sql = "SELECT `name`, `code` FROM `categories`";
+$sql = "SELECT * FROM `categories`";
 $result = mysqli_query($con, $sql);
 
 if ($result !== false) {
@@ -70,30 +70,20 @@ function get_min_bid($lot) {
 return intval($lot['price'] ?: $lot['price_start']) + intval($lot['bid_step']);
 }
 
-/**
-* Добавляет класс если поле не заполнено
-* @param string $field Данные из массива POST
-* @return string
-*/
-function add_form_status_class(string $field) : string
-{
-    $y = empty($field);
+function add_new_lot($con, $lot) {
+  $title = $lot['title'];
+  $category = $lot['category'];
+  $description = $lot['description'];
+  $image = $lot['image'];
+  $price_start = $lot['price_start'];
+  $bid_step = $lot['bid_step'];
+  $lot_end = $lot['lot_end'];
+  $owner_id = $lot['owner_id'];
 
-    return $y = TRUE ? 'form__item--invalid' : '';
-}
-
-function add_new_lot($con) {
-  $title = $_POST['title'];
-  $category = $_POST['category'];
-  $description = $_POST['description'];
-  $image = $_POST['image'];
-  $price_start = $_POST['price_start'];
-  $bid_step = $_POST['bid_step'];
-  $lot_end = $_POST['lot_end'];
-
-  $sql = "INSERT INTO users (`title`, `description`, `image`, `price_start`, `bid_step`, `lot_end`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  $sql = "INSERT INTO lots (`title`, `category`, `description`, `image`, `price_start`, `bid_step`, `lot_end`, `owner_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   $sql_add = mysqli_prepare($con, $sql);
-  mysqli_stmt_bind_param($sql_add, 'si', $title, $category, $description, $image, $price_start, $bid_step, $lot_end);
+  mysqli_stmt_bind_param($sql_add, 'sissiisi', $title, $category, $description, $image, $price_start, $bid_step, $lot_end, $owner_id);
   mysqli_stms_execute($sql_add);
+  //вернуть ид последней добавленной записи
 }
 
