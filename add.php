@@ -3,9 +3,12 @@ require_once 'functions.php';
 require_once 'timestamp.php';
 require_once 'db.php';
 
-$is_auth = rand(0, 1);
+session_start();
 
-$user_name = 'Даниленко Арина'; // укажите здесь ваше имя
+    if (count($_SESSION) < 1) {
+    	header("Location: error.php");
+    }
+
 $user_id = 1;
 
 $lots = get_all_lots($con);
@@ -42,11 +45,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors['image'] = 'Загрузите изображение в формате png или jpeg';
     }
     if (empty($errors)) {
-    	//сохранить фото в папку арлоадс
-    	$lot['owner_id'] = $user_id;
-    	//записать в $lot['image'] путь к этому фото
-    	//сохранить лот в БД, найти пример в демке
+    	$tmpname = $_FILES['image']['tmp_name'];
+    	$filename = 'uploads/' . $_FILES['image']['name'];
+        move_uploaded_file($tmpname,  $filename);
     }
+    if (empty($errors)) {	
+        $lot['owner_id'] = $user_id;
+        $lot['image']  = $filename;
+    
+        $sql = "INSERT INTO `lots` (`title`, `category`, `description`, `image`, `price_start`, `bid_step`, `lot_end`, `owner_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_add = db_get_prepare_stmt($con, $sql, [$lot['title'], $lot['category'], $lot['description'], $lot['image'], $lot['price_start'], $lot['bid_step'], $lot['lot_end'], $lot['owner_id']]);
+        $res = mysqli_stmt_execute($sql_add);
+    }
+    if ($res) {
+        $lot_id = mysqli_insert_id($con);
+
+        header("Location: lot.php?id=" . $lot_id);
+    }
+    
+
+
+    //else {$content = include_template('error.php', ['error' => mysqli_error($link)]);}
 }
 
 $page_content = include_template('add-lot.php', [
@@ -59,8 +78,7 @@ $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Добавить лот',
-    'user_name' => $user_name,
-    'is_auth' => $is_auth
+    'user_name' => $_SESSION['user']['name']
 ]);
 
 print($layout_content);

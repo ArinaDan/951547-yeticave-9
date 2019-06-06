@@ -9,7 +9,7 @@ CREATE TABLE `users` (
 `name` VARCHAR(128) NOT NULL,
 `photo` VARCHAR(255) DEFAULT NULL,
 `contacts` VARCHAR(255) NOT NULL,
-`reg_date` DATETIME DEFAULT NULL
+`reg_date` DATETIME DEFAULT NOW()
 );
 CREATE TABLE `categories` (
 `category_id` INT AUTO_INCREMENT PRIMARY KEY,

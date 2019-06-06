@@ -18,7 +18,7 @@
           <p class="lot-item__category">Категория: <span><?= $lot['category_name'] ?></span></p>
           <p class="lot-item__description"><?= $lot['description'] ?>.</p>
         </div>
-        <div class="lot-item__right">
+        <div class="lot-item__right <?= count($_SESSION)  < 1 ? 'visually-hidden' : '' ?>">
           <div class="lot-item__state">
             <div class="lot-item__timer timer <?= add_lot_status_class($lot['lot_end']) ?>">
              <?= get_formatted_lot_end($lot['lot_end']) ?>
@@ -37,7 +37,7 @@
             <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
               <p class="lot-item__form-item form__item form__item--invalid">
                 <label for="cost">Ваша ставка</label>
-                <input id="cost" type="text" name="cost" placeholder="12 000">
+                <input id="cost" type="text" name="cost" placeholder="<?= get_min_bid($lot) ?>">
                 <span class="form__error">Введите наименование лота</span>
               </p>
               <button type="submit" class="button">Сделать ставку</button>

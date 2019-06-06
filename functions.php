@@ -44,6 +44,24 @@ return $categories;
 }
 
 /**
+* Выбирает всю информацию по юзеру
+* @param string $ con Осуществляет соединение с базой данных
+* @return array
+*/
+function get_all_users($con) {
+$categories = [];
+
+$sql = "SELECT * FROM `users`";
+$result = mysqli_query($con, $sql);
+
+if ($result !== false) {
+	$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+return $users;
+}
+
+/**
 * Выбирает все лоты
 * @param string $ con Осуществляет соединение с базой данных
 * @return array
@@ -69,21 +87,3 @@ return $lots;
 function get_min_bid($lot) {
 return intval($lot['price'] ?: $lot['price_start']) + intval($lot['bid_step']);
 }
-
-function add_new_lot($con, $lot) {
-  $title = $lot['title'];
-  $category = $lot['category'];
-  $description = $lot['description'];
-  $image = $lot['image'];
-  $price_start = $lot['price_start'];
-  $bid_step = $lot['bid_step'];
-  $lot_end = $lot['lot_end'];
-  $owner_id = $lot['owner_id'];
-
-  $sql = "INSERT INTO lots (`title`, `category`, `description`, `image`, `price_start`, `bid_step`, `lot_end`, `owner_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  $sql_add = mysqli_prepare($con, $sql);
-  mysqli_stmt_bind_param($sql_add, 'sissiisi', $title, $category, $description, $image, $price_start, $bid_step, $lot_end, $owner_id);
-  mysqli_stms_execute($sql_add);
-  //вернуть ид последней добавленной записи
-}
-

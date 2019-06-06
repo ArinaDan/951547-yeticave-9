@@ -3,15 +3,11 @@ require_once 'functions.php';
 require_once 'timestamp.php';
 require_once 'db.php';
 
-$is_auth = rand(0, 1);
-
-$user_name = 'Даниленко Арина'; // укажите здесь ваше имя
-
-
+session_start();
 
 if (!isset($_GET['id'])) {
 
-header('Location: 404.php');
+header('Location: error.php');
 
 }
 
@@ -23,7 +19,7 @@ $lot = mysqli_fetch_assoc($result_lot);
 
 if (empty($lot)) {
 
-header('Location: 404.php');
+header('Location: error.php');
 
 }
 
@@ -37,8 +33,7 @@ $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Лот',
-    'user_name' => $user_name,
-    'is_auth' => $is_auth
+    'user_name' => $_SESSION['user']['name']
 ]);
 
 print($layout_content);
