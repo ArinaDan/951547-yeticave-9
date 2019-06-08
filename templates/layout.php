@@ -25,7 +25,7 @@
 <?php if ($user_name): ?>  
     <div class="user-menu__logged">
     <p><?= $user_name ?></p>
-    <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
+    <a class="user-menu__bets" href="my-bets.php">Мои ставки</a>
     <a class="user-menu__logout" href="logout.php">Выход</a>
   </div>
 <?php else: ?>
@@ -53,7 +53,7 @@
         <ul class="nav__list container">
             <?php foreach ($categories as $category): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"><?= $category['name'] ?></a>
+                <a href="all-lots.php?name=<?= $category['code'] ?>"><?= $category['name'] ?></a>
             </li>
         <?php endforeach ?>
         </ul>

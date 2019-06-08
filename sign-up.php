@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "INSERT INTO `users` (`e-mail`, `password`, `name`, `contacts`) VALUES (?, ?, ?, ?)";
         $sql_add = db_get_prepare_stmt($con, $sql, [$user['e-mail'], $password, $user['name'], $user['contacts']]);
         $res = mysqli_stmt_execute($sql_add);
-        header("Location: add.php");
+        header("Location: log-ok.php");
     }
 
     //else {$content = include_template('error.php', ['error' => mysqli_error($link)]);}**/

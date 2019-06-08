@@ -32,7 +32,7 @@ CREATE TABLE `lots` (
 CREATE TABLE `bids` (
 `bid_id` INT AUTO_INCREMENT PRIMARY KEY,
 `price` INT NOT NULL,
-`bid_add` DATETIME DEFAULT NULL,
+`bid_add` DATETIME DEFAULT NOW(),
 `user` INT,
 `lot` INT
 );

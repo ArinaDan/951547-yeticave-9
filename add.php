@@ -5,11 +5,9 @@ require_once 'db.php';
 
 session_start();
 
-    if (count($_SESSION) < 1) {
-    	header("Location: error.php");
+    if (!isset($_SESSION['user']['name'])) {
+    	header('Location: 403.php');
     }
-
-$user_id = 1;
 
 $lots = get_all_lots($con);
 $categories = get_all_categories($con);
@@ -50,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         move_uploaded_file($tmpname,  $filename);
     }
     if (empty($errors)) {	
-        $lot['owner_id'] = $user_id;
+        $lot['owner_id'] = $_SESSION['user']['user_id'];
         $lot['image']  = $filename;
     
         $sql = "INSERT INTO `lots` (`title`, `category`, `description`, `image`, `price_start`, `bid_step`, `lot_end`, `owner_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -62,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         header("Location: lot.php?id=" . $lot_id);
     }
-    
 
+var_dump($_SESSION);
 
     //else {$content = include_template('error.php', ['error' => mysqli_error($link)]);}
 }

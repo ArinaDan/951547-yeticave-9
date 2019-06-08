@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$errors['password'] = 'Неверный пароль';}
 	}
 	else {
-		$errors['email'] = 'Пользователь не найден';
+		$errors['e-mail'] = 'Пользователь не найден';
 	} 
 }
 
