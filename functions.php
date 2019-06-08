@@ -118,6 +118,25 @@ $cat_lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 return $cat_lots;
 }
 
+/**
+* Выбирает все лоты по поиску
+* @param string $ con Осуществляет соединение с базой данных
+* @param string $ search поисковый запрос
+* @return array
+*/
+function get_search_lots($con, $search) {
+$search_lots = [];
+
+$sql = "SELECT `lots`.*, MAX(price) as `price`, `name`, `code` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` WHERE MATCH(`title`, `description`) AGAINST('{$search}') GROUP BY `title` ORDER BY `lot_add` DESC";
+$result = mysqli_query($con, $sql);
+
+if ($result !== false) {
+$search_lots = mysqli_fetch_all($result, MYSQLI_ASSOC);    
+}
+
+return $search_lots;
+}
+
 function get_one_user_bids($con, $user_id) {
 $user_bids = [];
 $sql = "SELECT `bid_id`, `bid_add`, `lots`.*, `price`, `user` AS `user_id`, `categories`.`name`, `contacts`, `winner_id` FROM `bids` LEFT JOIN `lots` ON `lot` = `lot_id` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `users` ON `user` = `user_id` WHERE `user` = {$user_id} ORDER BY `bid_add` DESC";
