@@ -3,7 +3,7 @@
       <ul class="nav__list container">
         <?php foreach ($categories as $category): ?>
         <li class="nav__item">
-          <a href="all-lots.php?name=<?= $category['code'] ?>"><?= $category['name'] ?></a>
+          <a href="all-lots.php?code=<?= $category['code'] ?>"><?= $category['name'] ?></a>
         </li>
         <?php endforeach ?>
       </ul>
@@ -26,7 +26,10 @@
             <?= $user_bid['name'] ?>
           </td>
           <td class="rates__timer">
-            <div class="timer <?= (strtotime($user_bid['lot_end']) < time()) ? 'timer--end' : add_lot_status_class($user_bid['lot_end']) ?> <?= ($user_bid['winner_id'] === $user_bid['user_id']) ? 'timer--win' : '' ?>"><?= (strtotime($user_bid['lot_end']) < time()) ? 'Торги окончены' : get_formatted_lot_end($user_bid['lot_end']) ?></div>
+            <div class="timer 
+            <?= (strtotime($user_bid['lot_end']) < time()) ? 'timer--end' : add_lot_status_class($user_bid['lot_end']) ?>
+            <?= ($user_bid['winner_id'] === $user_bid['user_id']) ? 'timer--win' : '' ?>">
+            <?= (strtotime($user_bid['lot_end']) < time()) ? 'Торги окончены' : get_formatted_lot_end($user_bid['lot_end']) ?></div>
           </td>
           <td class="rates__price">
             <?= price_format($user_bid['price']) ?>

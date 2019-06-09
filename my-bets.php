@@ -14,6 +14,7 @@ $lots = get_all_lots($con);
 $lot_bids = get_all_lot_bids($con, $lot_id);
 $user_bids = get_one_user_bids($con, $user_id);
 
+
 $page_content = include_template('my-bets.php', [
     'lot' => $lot,
     'lots' => $lots,

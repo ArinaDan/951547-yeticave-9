@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: lot.php?id=" . $lot_id);
     }
 
-var_dump($_SESSION);
+var_dump($res);
 
     //else {$content = include_template('error.php', ['error' => mysqli_error($link)]);}
 }

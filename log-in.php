@@ -40,8 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 $page_content = include_template('log-in.php', [
-    //'lots' => $lots,
-    //'lot' => $lot,
     'users' => $users,
     'errors' => $errors,
     'categories' => $categories
@@ -50,7 +48,6 @@ $layout_content = include_template('layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Вход'
-    //'user_name' => $_SESSION['user']['name']
 ]);
 
 print($layout_content);

@@ -89,7 +89,7 @@ return $lot_bids;
 function get_all_lots($con) {
 $lots = [];
 
-$sql = "SELECT `lots`.*, MAX(price) as `price`,  `name` as `category_name` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` GROUP BY `title` ORDER BY `lot_add` DESC";
+$sql = "SELECT COUNT(*) as `cnt`, `lots`.*, MAX(price) as `price`,  `name` as `category_name` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` WHERE `lot_end` > NOW() GROUP BY `title` ORDER BY `lot_add` DESC";
 $result = mysqli_query($con, $sql);
 
 if ($result !== false) {
@@ -105,10 +105,10 @@ return $lots;
 * @param string $ category_name Код категории, для которого отбираются ставки
 * @return array
 */
-function get_one_category_lots($con, $category_name) {
+function get_one_category_lots($con, $category_code) {
 $cat_lots = [];
 
-$sql = "SELECT `lots`.*, MAX(price) as `price`, `name`, `code` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` WHERE `code` = '{$category_name}' GROUP BY `title` ORDER BY `lot_add` DESC";
+$sql = "SELECT `lots`.*, MAX(price) as `price`, `name`, `code` FROM `lots` LEFT JOIN `categories` ON `category` = `category_id` LEFT JOIN `bids` ON `lot_id` = `lot` WHERE `code` = '{$category_code}' GROUP BY `title` ORDER BY `lot_add` DESC";
 $result = mysqli_query($con, $sql);
 
 if ($result !== false) {

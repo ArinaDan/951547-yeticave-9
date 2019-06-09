@@ -9,8 +9,6 @@ $categories = get_all_categories($con);
 $errors = [];
 
 $page_content = include_template('error.php', [
-    //'lots' => $lots,
-    //'lot' => $lot,
     'errors' => $errors,
     'categories' => $categories
 ]);

@@ -11,7 +11,7 @@ header('Location: error.php');
 
 }
 
-$lot_id = (int) /*преобразование к числу*/ $_GET['id'];
+$lot_id = (int)$_GET['id'];
 
 $categories = get_all_categories($con);
 $lots = get_all_lots($con);
@@ -29,8 +29,6 @@ header('Location: error.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
        $bid = $_REQUEST['price'];
-       //$user_id = $_SESSION['user']['user_id'];
-       //$id = $_REQUEST['id']; 
 
     //проверка обязательных полей
     if (!isset($bid)) {

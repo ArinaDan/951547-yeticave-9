@@ -3,14 +3,14 @@
       <ul class="nav__list container">
         <?php foreach ($categories as $category): ?>
         <li class="nav__item">
-          <a href="all-lots.php?name=<?= $category['code'] ?>"><?= $category['name'] ?></a>
+          <a href="all-lots.php?code=<?= $category['code'] ?>"><?= $category['name'] ?></a>
         </li>
         <?php endforeach ?>
       </ul>
     </nav>
     <div class="container">
       <section class="lots">
-        <h2>Все лоты в категории <span>«<?= $cat_lots[0]['name'] ?>»</span></h2>
+        <h2>Все лоты в категории <span>«<?= $category_name ?>»</span></h2>
 
   <ul class="lots__list">
     <?php foreach ($cat_lots as $cat_lot): ?> 
@@ -34,15 +34,20 @@
           </li>
            <?php endforeach ?> 
   </ul>
-   
 </section>
-      <ul class="pagination-list">
-        <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
-        <li class="pagination-item pagination-item-active"><a>1</a></li>
-        <li class="pagination-item"><a href="#">2</a></li>
-        <li class="pagination-item"><a href="#">3</a></li>
-        <li class="pagination-item"><a href="#">4</a></li>
-        <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
-      </ul>
+    <?php if ((int)$pages_count > 1): ?>
+        <ul class="pagination-list">
+        <?php if ((int)$cur_page  > 1): ?>
+        <li class="pagination-item pagination-item-prev"><a href="all-lots.php?<?= $category_code ? 'code=' . $category_code . '&' : '' ?>page=<?= ((int)$cur_page - 1) ?>">Назад</a></li>
+        <?php endif ?>      
+        <?php foreach ($pages as $page): ?>
+        <li class="pagination-item <?= (int)$page === (int)$cur_page ? 'pagination-item-active' : '' ?>">
+            <a href="all-lots.php?<?= $category_code ? 'code=' . $category_code . '&' : '' ?>page=<?= $page ?>"><?= $page ?></a></li>
+        <?php endforeach; ?>
+        <?php if ((int)$cur_page  < (int)$pages_count): ?>
+        <li class="pagination-item pagination-item-next"><a href="all-lots.php?<?= $category_code ? 'code=' . $category_code . '&' : '' ?>page=<?= ((int)$cur_page + 1) ?>">Вперед</a></li>
+        <?php endif ?>
+    </ul>
+<?php endif ?>
     </div>
   </main>

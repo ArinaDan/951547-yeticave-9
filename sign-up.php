@@ -44,13 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $res = mysqli_stmt_execute($sql_add);
         header("Location: log-ok.php");
     }
-
-    //else {$content = include_template('error.php', ['error' => mysqli_error($link)]);}**/
 } 
 
 $page_content = include_template('sign-up.php', [
     'users' => $users,
-    'user' => $user,
     'errors' => $errors,
     'categories' => $categories
 ]);

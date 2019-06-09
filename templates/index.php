@@ -7,7 +7,7 @@
         <ul class="promo__list">
         <?php foreach ($categories as $category): ?>
             <li class="promo__item promo__item--<?= $category['code'] ?>">
-                <a class="promo__link" href="all-lots.php?name=<?= $category['code'] ?>"><?= $category['name'] ?></a>
+                <a class="promo__link" href="all-lots.php?code=<?= $category['code'] ?>"><?= $category['name'] ?></a>
         <?php endforeach; ?>
             </li>
         </ul>
@@ -18,7 +18,7 @@
         </div>
         <ul class="lots__list">
             <?php foreach ($lots as $lot): ?>
-            <li class="lots__item lot <?= (strtotime($lot['lot_end']) < time()) ? 'visually-hidden' : '' ?>">
+            <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?= $lot['image'] ?>" width="350" height="260" alt="<?= $lot['title'] ?>">
                 </div>
@@ -35,8 +35,6 @@
                             <span class="lot__cost">
                               <?= price_format($lot['price'] ?: $lot['price_start']) ?>  
                             </span>
-
-
                         </div>
                         <div class="lot__timer timer <?= add_lot_status_class($lot['lot_end']) ?>">
                             <?= get_formatted_lot_end($lot['lot_end']) ?>
@@ -47,4 +45,18 @@
             <?php endforeach; ?>
         </ul>
     </section>
+    <?php if ((int)$pages_count > 1): ?>
+        <ul class="pagination-list">
+        <?php if ((int)$cur_page  > 1): ?>
+        <li class="pagination-item pagination-item-prev"><a href="index.php?page=<?= ((int)$cur_page - 1) ?>">Назад</a></li>
+        <?php endif ?>      
+        <?php foreach ($pages as $page): ?>
+        <li class="pagination-item <?= ($page === $cur_page) ? 'pagination-item-active' : '' ?>">
+            <a href="index.php?page=<?= $page ?>"><?= $page ?></a></li>
+        <?php endforeach; ?>
+        <?php if ((int)$cur_page  < (int)$pages_count): ?>
+        <li class="pagination-item pagination-item-next"><a href="index.php?page=<?= ((int)$cur_page + 1) ?>">Вперед</a></li>
+        <?php endif ?>
+    </ul>
+<?php endif ?>
 </main>
